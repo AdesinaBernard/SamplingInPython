@@ -25,12 +25,27 @@ mean_loudness_samp = loudness_samp.mean()
 print(mean_loudness_pop, mean_loudness_samp)
 
 #Using Histagram to find out generalization
-spotify_population['acousticness'].hist(bins=np.arange(0,1.01,0.01))
+#spotify_population['acousticness'].hist(bins=np.arange(0,1.01,0.01))
 plt.title('Data distribution for acousticness rating')
-plt.show()
+#plt.show()
 
 #Can we generalize findings
-spotify_population['duration_minutes'].hist(bins=np.arange(0,15.5,0.5))
+#spotify_population['duration_minutes'].hist(bins=np.arange(0,15.5,0.5))
 plt.title('Data distribution for song duration in minutes')
+#plt.show()
+
+#Generating Randon Numbers using Uniform and Normal distribution
+uniforms = np.random.uniform(low=-3, high=3, size=5000)
+print(uniforms)
+
+normals = np.random.normal(loc=5, scale=2, size=5000)
+print(normals)
+
+#Plot a Histagram for Uniform and Normal Distribution values
+plt.hist(uniforms,bins=np.arange(-3,3.5, 0.5))
+plt.title('Histagram showing distribution of Uniform Values')
 plt.show()
 
+plt.hist(normals,bins=np.arange(-2,13.5, 0.5))
+plt.title('Histagram showing distribution of Normal Values')
+plt.show()
