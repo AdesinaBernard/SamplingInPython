@@ -23,3 +23,14 @@ mean_loudness_pop = loudness_pop.mean()
 mean_loudness_samp = loudness_samp.mean()
 
 print(mean_loudness_pop, mean_loudness_samp)
+
+#Using Histagram to find out generalization
+spotify_population['acousticness'].hist(bins=np.arange(0,1.01,0.01))
+plt.title('Data distribution for acousticness rating')
+plt.show()
+
+#Can we generalize findings
+spotify_population['duration_minutes'].hist(bins=np.arange(0,15.5,0.5))
+plt.title('Data distribution for song duration in minutes')
+plt.show()
+
