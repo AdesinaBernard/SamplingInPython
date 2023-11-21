@@ -24,13 +24,23 @@ print(attrition_sys_samp)
 #Plot a systematic sample to see if it is Ok
 attrition_pop_id = attrition_pop.reset_index()
 
-attrition_pop_id.plot(x='index', y='YearsAtCompany', kind='scatter')
+#attrition_pop_id.plot(x='index', y='YearsAtCompany', kind='scatter')
 plt.title('YearsAtCompany Vs Index')
-plt.show()
+#plt.show()
 
 attrition_shuffled = attrition_pop.sample(frac=1)
 
 attrition_shuffled = attrition_shuffled.reset_index(drop=True).reset_index()
-attrition_shuffled.plot(x='index', y='YearsAtCompany', kind='scatter')
+#attrition_shuffled.plot(x='index', y='YearsAtCompany', kind='scatter')
 plt.title('YearsAtCompany Vs Index for Randomised systematic sample')
-plt.show()
+#plt.show()
+
+#Proportional Stratified Sampling
+#Proportion of employees by Education Level
+education_count_pop = attrition_pop['Education'].value_counts(normalize=True)
+print(education_count_pop)
+
+attrition_strat = attrition_pop.groupby('Education').sample(frac=0.4, random_state=2022)
+
+education_count_strat  = attrition_strat['Education'].value_counts(normalize=True)
+print(education_count_strat)
