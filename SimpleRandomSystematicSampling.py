@@ -25,14 +25,14 @@ print(attrition_sys_samp)
 attrition_pop_id = attrition_pop.reset_index()
 
 #attrition_pop_id.plot(x='index', y='YearsAtCompany', kind='scatter')
-plt.title('YearsAtCompany Vs Index')
+#plt.title('YearsAtCompany Vs Index')
 #plt.show()
 
 attrition_shuffled = attrition_pop.sample(frac=1)
 
 attrition_shuffled = attrition_shuffled.reset_index(drop=True).reset_index()
 #attrition_shuffled.plot(x='index', y='YearsAtCompany', kind='scatter')
-plt.title('YearsAtCompany Vs Index for Randomised systematic sample')
+#plt.title('YearsAtCompany Vs Index for Randomised systematic sample')
 #plt.show()
 
 #Proportional Stratified Sampling
@@ -44,3 +44,19 @@ attrition_strat = attrition_pop.groupby('Education').sample(frac=0.4, random_sta
 
 education_count_strat  = attrition_strat['Education'].value_counts(normalize=True)
 print(education_count_strat)
+
+#Equal sample of 30
+attrition_eq = attrition_pop.groupby('Education').sample(n=30, random_state=2022)
+education_count_eq = attrition_eq['Education'].value_counts(normalize=True)
+print(education_count_eq)
+
+#Weighted Samples
+attrition_pop['YearsAtCompany'].hist(bins=np.arange(0,41,1))
+plt.title('Years At Company distribution on general population')
+plt.show()
+
+attrition_weight = attrition_pop.sample(n=300, weights='YearsAtCompany')
+
+attrition_weight['YearsAtCompany'].hist(bins=np.arange(0,41,1))
+plt.title('Years At Company distribution on wieghted sample')
+plt.show()
