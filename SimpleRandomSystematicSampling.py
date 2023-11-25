@@ -58,9 +58,9 @@ print(education_count_eq)
 
 attrition_weight = attrition_pop.sample(n=300, weights='YearsAtCompany')
 
-# attrition_weight['YearsAtCompany'].hist(bins=np.arange(0,41,1))
-# plt.title('Years At Company distribution on weighted sample')
-# plt.show()
+attrition_weight['YearsAtCompany'].hist(bins=np.arange(0,41,1))
+plt.title('Years At Company distribution on weighted sample')
+plt.show()
 
 #Creating a cluster sample
 #create a list of unique JobRole titles
