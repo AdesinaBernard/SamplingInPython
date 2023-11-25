@@ -3,6 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pyarrow
+import random
 
 #Load the attrition .feather file dataset
 attrition_pop = pd.read_feather('/Users/mac/Downloads/attrition.feather')
@@ -51,12 +52,32 @@ education_count_eq = attrition_eq['Education'].value_counts(normalize=True)
 print(education_count_eq)
 
 #Weighted Samples
-attrition_pop['YearsAtCompany'].hist(bins=np.arange(0,41,1))
-plt.title('Years At Company distribution on general population')
-plt.show()
+# attrition_pop['YearsAtCompany'].hist(bins=np.arange(0,41,1))
+# plt.title('Years At Company distribution on general population')
+# plt.show()
 
 attrition_weight = attrition_pop.sample(n=300, weights='YearsAtCompany')
 
-attrition_weight['YearsAtCompany'].hist(bins=np.arange(0,41,1))
-plt.title('Years At Company distribution on wieghted sample')
-plt.show()
+# attrition_weight['YearsAtCompany'].hist(bins=np.arange(0,41,1))
+# plt.title('Years At Company distribution on weighted sample')
+# plt.show()
+
+#Creating a cluster sample
+#create a list of unique JobRole titles
+job_roles_pop = list(attrition_pop['JobRole'].unique())
+
+#select four values randomly from JobRole
+job_roles_samp = random.sample(job_roles_pop, k=4)
+print(job_roles_samp)
+
+#Filter for rows where JobRole is in job_roles_sample
+jobrole_condition = attrition_pop['JobRole'].isin(job_roles_samp)
+attrition_filtered = attrition_pop[jobrole_condition]
+
+#Remove categories with no rows
+attrition_filtered['JobRole'] = attrition_filtered['JobRole'].cat.remove_unused_categories()
+
+#Randomly sample 10 employees from each sampled Job Roles
+attrition_clust = attrition_filtered.groupby('JobRole').sample(n=10, random_state=2022)
+
+print(attrition_clust)
