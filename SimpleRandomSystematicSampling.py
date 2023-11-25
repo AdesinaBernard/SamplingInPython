@@ -81,3 +81,5 @@ attrition_filtered['JobRole'] = attrition_filtered['JobRole'].cat.remove_unused_
 attrition_clust = attrition_filtered.groupby('JobRole').sample(n=10, random_state=2022)
 
 print(attrition_clust)
+
+# On completing all sampling methods, you must compare them using summary stats to see best approach
